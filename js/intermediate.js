@@ -1,0 +1,95 @@
+
+class AppComposite
+{
+constructor(numberofviews , servesNum , clientsNum)
+{
+    this.NumberOfViews = numberofviews; 
+    this.servesNum = servesNum; 
+    this.clientsNum = clientsNum; 
+    this.complexity = null; 
+    this.total_data = this.servesNum + this.clientsNum; 
+    this.simple = [1,2]; 
+    this.medium = [2,5]; 
+    this.difficult= [3,8]; 
+    this.type= null; 
+}
+complexityCalc(checker)
+{
+    var temp;
+    if (checker ==1)
+    {
+        this.type = "View"; 
+        this.viewCalc(); 
+    }
+    else
+    {
+        this.type = "Report";
+        this.reportCalc(); 
+    }
+}
+viewCalc()
+{
+       // there are three complex if/else/ conditional blocks , i divided them into three lines of codes for the readability.
+    
+    // first check for the screen number , then check for the data on client/server numbers to assume the complexity
+    var temp; 
+    ((this.NumberOfViews<3 && this.total_data<8) ) ? (this.complexity=1) : this.complexity=2;
+
+
+    ((this.NumberOfViews<7 && this.NumberOfViews>=3) ) ? ((this.total_data<4) ? this.complexity =1 : 
+      (this.complexity<8) ? this.complexity=2 : this.complexity=3) : temp=2;
+   
+   ((this.NumberOfViews>=8) ) ? (this.total_data<4 ? this.complexity = 2 : this.complexity=3) : temp=3 ;
+}
+reportCalc()
+{
+    var temp;
+
+ ((this.NumberOfViews<2 && this.total_data<8) ) ? (this.complexity=2) : this.complexity=5;
+
+
+ ((this.NumberOfViews==2 || this.NumberOfViews==3) ) ? ((this.total_data<4) ? this.complexity =2 : 
+   (this.total_data<8) ? this.complexity=5 : this.complexity=8) : temp=2;
+
+ ((this.NumberOfViews>3) ) ? (this.total_data<4 ? this.complexity = 5 : this.complexity=8) : temp=3  ;
+}
+}
+
+class ApplicationModel
+{
+constructor(AppComposites , DevExperience , CASE ,  reuse )
+{
+    this.AppComposites = AppComposites;  
+    this.DevExperience = DevExperience; 
+    this.CASE = CASE; 
+    this.AP=null; 
+    this.NAP = null; 
+    this.PM = null; 
+    this.Productivity = null; 
+    this.effort = null; 
+    this.reuse = reuse; 
+    this.time = null; 
+    this.people = null; 
+    this.b = 1.17; 
+
+}
+
+Calculation()
+{
+    // first the AP module
+   for (var i =0; i<this.AppComposites.length; i++)
+   {
+       this.AP+=this.AppComposites[i].complexity; 
+   }
+   this.AP+=this.DevExperience+this.CASE; 
+
+   this.NAP = this.AP * ((100-(this.reuse))/100);
+
+   this.effort = this.NAP / this.Productivity; 
+
+   this.time =  3* (Math.pow(this.effort , (0.33+0.2*(this.b-1.01)))); 
+
+   this.people  = this.effort / this.time; 
+   //Time = 3*Effort^(0.33+0.2*(B-1.01))
+}
+}
