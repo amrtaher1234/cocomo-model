@@ -1,8 +1,9 @@
 
 class AppComposite
 {
-constructor(numberofviews , servesNum , clientsNum)
+constructor(numberofviews , servesNum , clientsNum , checker)
 {
+    this.checker = checker; 
     this.NumberOfViews = numberofviews; 
     this.servesNum = servesNum; 
     this.clientsNum = clientsNum; 
@@ -13,10 +14,10 @@ constructor(numberofviews , servesNum , clientsNum)
     this.difficult= [3,8]; 
     this.type= null; 
 }
-complexityCalc(checker)
+complexityCalc()
 {
     var temp;
-    if (checker ==1)
+    if (this.checker ==1)
     {
         this.type = "View"; 
         this.viewCalc(); 
@@ -62,14 +63,14 @@ constructor(AppComposites , DevExperience , CASE ,  reuse )
     this.AppComposites = AppComposites;  
     this.DevExperience = DevExperience; 
     this.CASE = CASE; 
-    this.AP=null; 
-    this.NAP = null; 
-    this.PM = null; 
-    this.Productivity = null; 
-    this.effort = null; 
+    this.AP=0; 
+    this.NAP = 0; 
+    this.PM = 0; 
+    this.Productivity = 0; 
+    this.effort = 0; 
     this.reuse = reuse; 
-    this.time = null; 
-    this.people = null; 
+    this.time = 0; 
+    this.people = 0; 
     this.b = 1.17; 
 
 }
@@ -79,6 +80,7 @@ Calculation()
     // first the AP module
    for (var i =0; i<this.AppComposites.length; i++)
    {
+       this.AppComposites[i].complexityCalc(); 
        this.AP+=this.AppComposites[i].complexity; 
    }
    this.AP+=this.DevExperience+this.CASE; 
