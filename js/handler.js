@@ -94,7 +94,8 @@ if (checkforvalidation==false)
  $(".dataarea").fadeOut("slow");
  
 // $(".viewsarea").empty(); 
-
+//sd
+console.log("sd"); 
 
 var finalList = []; 
 $('.dataarea').children('input').each(function () {
