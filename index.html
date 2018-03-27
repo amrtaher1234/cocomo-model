@@ -175,6 +175,7 @@
                             <label></label>
                             <input type="text" class="form-control" placeholder="Name">
                         </div> -->
+                        
                         <div class="col-md-10">
                             <label></label>
                         <select id="ModelSelection" class="form-control" placeholder="Selection" name="cars" onchange="Myfunc()">
@@ -188,7 +189,26 @@
                         <div id="brb">
 
                         </div>
-                      
+                      <div class="ApplicationModel">
+                        <div class="col-md-10">
+
+                                <h4 onclick="B_Calculation()">Choose the values for B multipliers</h4>
+                                <button onclick="Default()" >Click for Default B value here</button>
+                                    <table id="mytabl" class="table b_table">
+                                        <thead>
+                                          <tr class="b_tr">
+                                            <th>Scaling Factors</th>
+                                            <th>Very Low</th>
+                                            <th>Low</th>
+                                            <th>Nominal</th>
+                                            <th>High</th>
+                                            <th>Very High</th>
+                                            <th>Extra High</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody class="b_body"></tbody>
+                                      </table>
+                                </div>
                             <div  class="col-md-8 ">
                                 <div id="elementwrapper">
                             <label></label>
@@ -206,12 +226,12 @@
 
                             <div class="dataarea col-md-6"></div>
                         </div>
-   
-                         
+                    </div>
+                       
                         <br><br>
                         <div class="col-md-4 col-md-offset-4">
                                 <label></label>
-                                <button onclick="test()" disabled="true" id="calculate" type="button" data-toggle="modal" data-target="#alertModal" class="btn btn-primary btn-block btn-lg">Operate the Model <i class="ion-android-arrow-forward"></i></button>
+                                <button onclick="Calculate()" disabled="true" id="calculate" type="button" data-toggle="modal" data-target="#alertModal" class="btn btn-primary btn-block btn-lg">Operate the Model <i class="ion-android-arrow-forward"></i></button>
                             </div>
                     </form>
                 </div>
@@ -279,9 +299,10 @@
     <script src="./js/basic.js"></script>
     <script src="./js/intermediate.js"></script>
     <script src="./js/handler.js"></script>
+    <script src="./js/dataHandling.js"></script>
     
     <script>
-
+      
     </script>
   </body>
 </html>

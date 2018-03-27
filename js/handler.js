@@ -15,17 +15,20 @@ $("#nextVal").click(function()
 //     alert(this.value); // "this" is the current element in the loop
 // });
 $(".viewsarea").append("<h5> insert views data</h5>")
+// adding the number of screens and each one will add its number of screens and dataservers
 for (var i =0; i<viewscount; i++)
 {
 $( ".viewsarea" ).append( " <input id='screens' type='number' min='1' class='form-control copier' placeholder='Number Of Screens'>" );
 $( ".viewsarea" ).append( " <input id='servers' type='number' min='1' class='form-control copier' placeholder='Number Of Servers'>" );
 $( ".viewsarea" ).append( " <input id='clients' type='number' min='1' class='form-control copier' placeholder='Number Of Clients'>" );
 $(".viewsarea").append("<br>")
-}  
+}
+
 $(".viewsarea").append("<br>")
 
 $(".reportsarea").append("<h5> insert reports data</h5>")
 
+// adding the number of screens and each one will add its number of screens and dataservers
 for (var i =0; i<reportscount; i++)
 {
 $( ".reportsarea" ).append( " <input id='sections' type='number' min='1' class='form-control copier' placeholder='Number Of Sections'>" );
@@ -89,20 +92,36 @@ if (checkforvalidation==false)
     CompositesList = [];
     return;
 }
- $(".reportsarea").fadeOut("slow");
- $(".viewsarea").fadeOut("slow");
- $(".dataarea").fadeOut("slow");
- 
+
 // $(".viewsarea").empty(); 
 //sd
-console.log("sd"); 
+ 
+
 
 var finalList = []; 
 $('.dataarea').children('input').each(function () {
               
     finalList.push(parseInt(this.value));
 });
+if (!finalList[0]>0 || !finalList[2]>0  || !finalList[1]>0 )
+{
+    alert("error in input"); 
+    return;
+}
 ApplicationModelVar = new ApplicationModel(CompositesList , finalList[0] , finalList[1] , finalList[2]); 
 ApplicationModelVar.Calculation(); 
 console.log(ApplicationModelVar); 
+$(".reportsarea").fadeOut("slow");
+$(".viewsarea").fadeOut("slow");
+$(".dataarea").fadeOut("slow");
+
 }
+
+
+
+
+
+
+
+
+

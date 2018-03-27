@@ -29,7 +29,7 @@ class Data
     }
     else
     {
-        temp=3; 
+        temp=2; 
         this.type = "Embedded"; 
     }
     this.PM =Math.ceil( this.a[temp] * (Math.pow(this.KLOC , this.b[temp]))); // effort calcualtion
@@ -53,9 +53,9 @@ var h1 = `
     `;
 document.getElementById("brb").innerHTML=h1;  
 }
-else
+else if (selection.selectedIndex == 2)
 {
-    document.getElementById("brb").innerHTML="<div class='col-md-7'><h1> Not Implemented Yet</h1></div>"; 
+   $('.ApplicationModel').toggle();  
 }
 
 

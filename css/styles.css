@@ -28,7 +28,10 @@ hr {
     margin-top: 15px;
     margin-bottom: 15px;
 }
-
+.selected  {
+    background-color: dodgerblue;
+    color: #fff;    
+}
 hr.light {
     border-color: #fff;
 }
