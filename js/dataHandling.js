@@ -93,10 +93,11 @@ $('td').on('click' , function()
     tr.removeClass("dem"); 
 })
 var DefaultOrNot = false; 
-var B_Value = 1; 
+var B_Value = 0; 
 function Default()
 {
 DefaultOrNot = true; 
+$(".b_table").fadeOut("Slow"); 
 }
 function B_Calculation()
 {
@@ -115,6 +116,7 @@ for (var i = 0, row; row = table.rows[i]; i++) {
      }  
    }  
 }
+
 B_Value = B_Value/100 + 0.91; 
 }
 else

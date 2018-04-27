@@ -1,5 +1,6 @@
 var CompositesList = []
 var ApplicationModelVar; 
+console.log($('#RUSE').find(":selected").val());
 $("#nextVal").click(function()
 {
     // document.getElementById("elementwrapper").innerHTML="<br> <br>";
@@ -108,20 +109,176 @@ if (!finalList[0]>0 || !finalList[2]>0  || !finalList[1]>0 )
     alert("error in input"); 
     return;
 }
+B_Calculation(); 
 ApplicationModelVar = new ApplicationModel(CompositesList , finalList[0] , finalList[1] , finalList[2]); 
+ApplicationModelVar.b = B_Value; 
 ApplicationModelVar.Calculation(); 
 console.log(ApplicationModelVar); 
 $(".reportsarea").fadeOut("slow");
 $(".viewsarea").fadeOut("slow");
 $(".dataarea").fadeOut("slow");
 
+$("#interAP").text("AP is : " + ApplicationModelVar.AP);
+$("#interNAP").text("NAP is : " + ApplicationModelVar.NAP); 
+$("#interEffort").text("Effort is : " + ApplicationModelVar.effort); 
+$("#interTime").text("Time is : " + ApplicationModelVar.time); 
+$("#interPeople").text("People is : " + ApplicationModelVar.people); 
+ 
 }
 
 
 
+function IntermediateSelection() // this triggers when a selection is changed in the Selection element in my html.
+{
+var selection = document.getElementById("InterModelSelection"); 
+if (selection.selectedIndex==1){
+
+$('.ApplicationModel').toggle();
+$('.ApplicationModel').addClass("toshow"); 
+$(".ReuseModel").hide(); 
+$(".EarlyDesignModel").hide(); 
+$(".FunctionPointModel").hide();
+
+}
+else if (selection.selectedIndex == 2)
+{
+  //
+ 
+  $(".ReuseModel").toggle(); 
+  $(".ReuseModel").addClass("toshow");
+  $(".ApplicationModel").hide(); 
+  $(".EarlyDesignModel").hide(); 
+  $(".FunctionPointModel").hide();
+  
+}
+else if (selection.selectedIndex == 3)
+{
+    $(".EarlyDesignModel").toggle(); 
+    $(".ReuseModel").addClass("toshow");
+    $(".ApplicationModel").hide(); 
+    $(".ReuseModel").hide();
+}
+
+else if (selection.selectedIndex == 4)
+{
+
+}
+
+else
+{
+
+}
+}
+
+
+function ReuseModelCalculation()
+{
+    alert("clicked"); 
+    var ASLOC = parseFloat(document.getElementById("ASLOC").value);
+    var AT = parseFloat(document.getElementById("AT").value);
+    var ATPROD = parseFloat(document.getElementById("ATPROD").value);
+    var AAM = parseFloat(document.getElementById("AAM").value);
+
+    if (AAM <0 || ASLOC <0 || AT <0 || ATPROD <0)
+    {
+        alert("Error in input"); 
+        return; 
+    }
+    var ReuseModelVar = new ReuseModel(ASLOC , AT , ATPROD , AAM); 
+    B_Calculation(); 
+
+    ReuseModelVar.b = B_Value;
+    if (ReuseModelVar.b == 0.91)
+    {
+        ReuseModelVar.b = 1.17; 
+    }
+    ReuseModelVar.Calculation(); 
+    console.log(ReuseModelVar); 
+}
 
 
 
+function DesignModelCalculation()
+{
+var muls = []; 
+muls.push($('#RCPX').find(":selected").val());
+muls.push($('#RUSE').find(":selected").val());
+muls.push($('#PDIF').find(":selected").val());
+muls.push($('#PERS').find(":selected").val());
+muls.push($('#PREX').find(":selected").val());
+muls.push($('#FCIL').find(":selected").val());
+muls.push($('#SCED').find(":selected").val());
+
+var mul_answer =1; 
+for (var i=0; i<muls.length; i++)
+{
+    mul_answer*=muls[i]; 
+}
+var Size = $("#size_design").val(); 
+console.log(Size*2); 
+console.log(mul_answer); 
+
+var PM = 2.94 * Math.pow(Size , B_Value) * mul_answer;
+console.log("PM" + PM );
+
+var time = 3* (Math.pow(PM , (0.33+0.2*(B_Value-1.01)))); 
+
+var people = PM/time; 
+
+$(".designEffort").text("Effort of design model is " + Math.ceil(PM)); 
+$(".designTime").text("Time of design model is " +Math.ceil(time)); 
+$(".designPeople").text("People of design model is " + Math.ceil(people)); 
+
+}
+
+
+
+function FunctionPointCalculation()
+{
+    var UFP = 0 ; 
+    UFP += document.getElementById("inputsSimple").value * 3; 
+    UFP += document.getElementById("inputsAverage").value * 4; 
+    UFP += document.getElementById("inputsComplex").value * 6; 
+
+    UFP += document.getElementById("outputsSimple").value * 4; 
+    UFP += document.getElementById("outputsAverage").value * 5; 
+    UFP += document.getElementById("outputsComplex").value * 7; 
+
+    UFP += document.getElementById("requestsSimple").value * 3; 
+    UFP += document.getElementById("requestsAverage").value * 4; 
+    UFP += document.getElementById("requestsComplex").value * 6; 
+
+
+    UFP += document.getElementById("filesSimple").value * 7; 
+    UFP += document.getElementById("filesAverage").value * 10; 
+    UFP += document.getElementById("filesComplex").value * 15; 
+
+    UFP += document.getElementById("externalsSimple").value * 5; 
+    UFP += document.getElementById("externalsAverage").value * 7; 
+    UFP += document.getElementById("externalsComplex").value * 10; 
+
+    console.log(UFP);
+    var validator = true; 
+    var UD = 0; 
+    $(".ComplexityFactors input").each(function() {
+        UD +=this.value; 
+        }
+    );
+
+    var FP = UFP * (0.65 + 0.01*UD); 
+
+    console.log(FP); 
+
+    if (validator==false)
+    {
+        alert("error in input"); 
+        return; 
+    }
+
+    $(".FP").text("Function Point Calculation Result is equal to : " + FP); 
+
+    
+}
 
 
 

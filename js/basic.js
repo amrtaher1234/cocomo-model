@@ -1,3 +1,8 @@
+
+$("#IntermediateModelSelection").toggle(); 
+$(".ReuseModel").toggle(); 
+$('.EarlyDesignModel').toggle(); 
+$('.FunctionPointModel').toggle(); 
 class Data
 {
     constructor(LOC) // construct the number of lines given by the user
@@ -46,18 +51,21 @@ if (selection.selectedIndex==1){
 var btn = document.getElementById("calculate");
 btn.disabled=false;  
 var h1 = `
-                        <div class="col-md-6">
-                            <label></label>
-                            <input id="LOC" type="number" min="1" class='form-control LOC' placeholder="Number Of Lines For Your Code">
-                        </div>
+                      
     `;
 document.getElementById("brb").innerHTML=h1;  
 }
 else if (selection.selectedIndex == 2)
 {
-   $('.ApplicationModel').toggle();  
+    $("#IntermediateModelSelection").toggle(); 
 }
-
+else
+{
+$('.FunctionPointModel').toggle(); 
+$(".ReuseModel").hide(); 
+$(".ApplicationModel").hide(); 
+$(".EarlyDesignModel").hide();     
+}
 
 }
 

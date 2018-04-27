@@ -66,12 +66,13 @@ constructor(AppComposites , DevExperience , CASE ,  reuse )
     this.AP=0; 
     this.NAP = 0; 
     this.PM = 0; 
-    this.Productivity = 0; 
+    this.Productivity = 7; 
     this.effort = 0; 
     this.reuse = reuse; 
     this.time = 0; 
     this.people = 0; 
     this.b = 1.17; 
+    
 
 }
 
@@ -83,8 +84,8 @@ Calculation()
        this.AppComposites[i].complexityCalc(); 
        this.AP+=this.AppComposites[i].complexity; 
    }
-   this.AP+=this.DevExperience+this.CASE; 
-
+  // this.AP+=this.DevExperience+this.CASE; 
+  this.AP += 1*10; 
    this.NAP = this.AP * ((100-(this.reuse))/100);
 
    this.effort = this.NAP / this.Productivity; 
@@ -93,5 +94,30 @@ Calculation()
 
    this.people  = this.effort / this.time; 
    //Time = 3*Effort^(0.33+0.2*(B-1.01))
+}
+}
+
+class ReuseModel
+{
+constructor(ASLOC ,AT , ATPROD  , AAM )
+{
+this.PM = null; 
+this.ASLOC = ASLOC; 
+this.AT = AT;
+this.ESLOC =  null; 
+this.AAM = AAM;  
+this.ATPROD = ATPROD;   
+this.b =1.17; 
+this.time = null; 
+this.people= null; 
+}
+Calculation()
+{
+this.PM = (this.ASLOC* this.AT/100)/this.ATPROD; 
+this.ESLOC = this.ASLOC * (1-( this.AT/100)) * this.AAM; 
+
+this.time =  3* (Math.pow(this.PM , (0.33+0.2*(this.b-1.01)))); 
+
+this.people  = this.PM / this.time; 
 }
 }
